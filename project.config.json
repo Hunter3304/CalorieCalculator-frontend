@@ -2,7 +2,7 @@
   "miniprogramRoot": "dist/",
   "projectname": "CalorieCalculator-frontend",
   "description": "A bilingual calorie calculator frontend built with Taro and React.",
-  "appid": "wx9d43947277d91d78",
+  "appid": "wx7ed730f3cde2c594",
   "setting": {
     "urlCheck": true,
     "es6": false,
