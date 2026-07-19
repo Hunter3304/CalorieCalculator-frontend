@@ -1,8 +1,6 @@
 import Taro from '@tarojs/taro'
 
-const API_BASE = 'https://caloriecalculator-backend-production.up.railway.app/api'
-//const API_BASE = 'http://localhost:8080/api'
-//const API_BASE = 'http://127.0.0.1:8080/api'
+const API_BASE = process.env.TARO_APP_API_BASE || 'http://localhost:8080/api'
 
 // 获取食物基础列表
 export const getFoodList = () => {
