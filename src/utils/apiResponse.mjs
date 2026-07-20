@@ -1,8 +1,9 @@
 export const ensureSuccessfulResponse = (response) => {
-  const statusCode = response?.statusCode
+  const statusCode = response && response.statusCode
 
   if (typeof statusCode !== 'number' || statusCode < 200 || statusCode >= 300) {
-    const error = new Error(`API request failed with status ${statusCode ?? 'unknown'}`)
+    const statusLabel = typeof statusCode === 'number' ? statusCode : 'unknown'
+    const error = new Error(`API request failed with status ${statusLabel}`)
     error.statusCode = statusCode
     error.response = response
     throw error
