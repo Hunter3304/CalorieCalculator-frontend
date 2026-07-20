@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { View, Text, Input, Button } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 // 确保 api.js 中已导出 deleteCustomFood
@@ -8,7 +8,6 @@ import { getTodayDate } from '../../utils/date'
 import Sidebar from './components/Sidebar'
 import FoodList from './components/FoodList'
 import FoodModal from './components/FoodModal'
-import CartFooter from './components/CartFooter'
 import CreateCustomModal from './components/CreateCustomModal'
 
 export default function AddFood() {
@@ -26,7 +25,7 @@ export default function AddFood() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [currentFood, setCurrentFood] = useState(null)
   const [weightInput, setWeightInput] = useState('')
-  const [cart, setCart] = useState([])
+  const [isSaving, setIsSaving] = useState(false)
 
   // --- 2. 生命周期与 API 逻辑 ---
   useEffect(() => {
@@ -97,30 +96,30 @@ export default function AddFood() {
     setIsModalOpen(true)
   }
 
-  const handleConfirmAdd = () => {
+  const handleConfirmAdd = async () => {
+    if (isSaving) return
+
     const weight = parseFloat(weightInput)
-    if (!weight || weight <= 0) return Taro.showToast({ title: '请输入有效克数', icon: 'none' })
-    setCart([...cart, { foodId: currentFood.id, foodName: currentFood.nameZh, weight }])
-    setIsModalOpen(false)
-  }
-
-  const handleSaveAll = async () => {
-    if (cart.length === 0) return Taro.showToast({ title: '还没选食物呢', icon: 'none' });
-    Taro.showLoading({ title: '保存中...', mask: true });
-    try {
-      const today = getTodayDate()
-      for (const item of cart) {
-        await addDailyRecord({ foodId: item.foodId, weight: item.weight, date: today });
-      }
-      Taro.hideLoading();
-      Taro.showToast({ title: '保存成功', icon: 'success' });
-      setTimeout(() => Taro.navigateBack(), 1000);
-    } catch (e) {
-      Taro.hideLoading();
-      Taro.showToast({ title: '保存出错', icon: 'none' });
+    if (!weight || weight <= 0) {
+      Taro.showToast({ title: '请输入有效克数', icon: 'none' })
+      return
     }
-  };
 
+    setIsSaving(true)
+    Taro.showLoading({ title: '保存中...', mask: true })
+    try {
+      await addDailyRecord({ foodId: currentFood.id, weight, date: getTodayDate() })
+      setIsModalOpen(false)
+      Taro.showToast({ title: '添加成功', icon: 'success' })
+      setTimeout(() => Taro.navigateBack(), 600)
+    } catch (error) {
+      console.error('Failed to add daily record', error)
+      Taro.showToast({ title: '添加失败，请重试', icon: 'none' })
+    } finally {
+      Taro.hideLoading()
+      setIsSaving(false)
+    }
+  }
   // --- 4. 实时搜索逻辑 (带防抖) ---
   const searchTimer = useRef(null)
   const performSearch = async (keyword) => {
@@ -157,7 +156,7 @@ export default function AddFood() {
         <View style={{ backgroundColor: '#f2f2f2', borderRadius: '20px', padding: '8px 15px', display: 'flex', alignItems: 'center' }}>
           <Text style={{ marginRight: '10px', color: '#999' }}>🔍</Text>
           <Input 
-            placeholder="搜索食物 (如: 苹果, 鸡胸肉)" 
+            placeholder='搜索食物 (如: 苹果, 鸡胸肉)'
             style={{ flex: 1, fontSize: '14px' }} 
             value={searchKeyword}
             onInput={handleInput}
@@ -196,7 +195,7 @@ export default function AddFood() {
                 <FoodList 
                   list={customList} 
                   onFoodClick={openModal}
-                  isCustomTab={true}           // 👇 开启管理按钮
+                  isCustomTab           // 👇 开启管理按钮
                   onEdit={handleEditCustom}    // 👇 挂载编辑
                   onDelete={handleDeleteCustom}// 👇 挂载删除
                 />
@@ -208,14 +207,15 @@ export default function AddFood() {
         )}
       </View>
 
-      <CartFooter cartCount={cart.length} onSave={handleSaveAll} />
-
       <FoodModal 
         isOpen={isModalOpen} 
         food={currentFood} 
         weight={weightInput} 
+        isSaving={isSaving}
         onWeightChange={setWeightInput}
-        onCancel={() => setIsModalOpen(false)} 
+        onCancel={() => {
+          if (!isSaving) setIsModalOpen(false)
+        }}
         onConfirm={handleConfirmAdd} 
       />
 
