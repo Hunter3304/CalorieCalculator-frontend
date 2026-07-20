@@ -4,7 +4,7 @@ import { View, Text, Button } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 
 // 导入刚才拆分的模块
-import { getFoodList, getDailySummary, addDailyRecord, updateDailyRecord, deleteDailyRecord } from '../../services/api'
+import { getDailySummary, addDailyRecord, updateDailyRecord, deleteDailyRecord } from '../../services/api'
 import { getTodayDate } from '../../utils/date'
 import FoodSelector from '../../components/FoodSelector'
 import DailyList from '../../components/DailyList'
@@ -12,7 +12,6 @@ import NutritionSummary from '../../components/NutritionSummary'
 
 export default function Index() {
   const [currentDate, setCurrentDate] = useState('')
-  const [foodList, setFoodList] = useState([])
   const [dailyRecords, setDailyRecords] = useState([])
   const [summary, setSummary] = useState({})
 
@@ -20,19 +19,9 @@ export default function Index() {
 useDidShow(() => {
     const today = getTodayDate()
     setCurrentDate(today)
-    loadInitialData(today) // 每次页面展示，都会重新去后端拉取今天的最新列表！
+    fetchSummary(today)
   })
 
-  const loadInitialData = async (date) => {
-    try {
-      const foodRes = await getFoodList()
-      if (foodRes.statusCode === 200) setFoodList(foodRes.data)
-      
-      fetchSummary(date) // 加载当日日记
-    } catch (error) {
-      Taro.showToast({ title: '数据加载失败', icon: 'none' })
-    }
-  }
 
   // 独立出来的拉取汇总方法
   const fetchSummary = async (date) => {
