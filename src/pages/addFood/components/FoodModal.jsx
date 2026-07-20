@@ -1,7 +1,6 @@
-import React from 'react'
 import { View, Text, Input, Button } from '@tarojs/components'
 
-export default function FoodModal({ isOpen, food, weight, onWeightChange, onCancel, onConfirm }) {
+export default function FoodModal({ isOpen, food, weight, isSaving, onWeightChange, onCancel, onConfirm }) {
   if (!isOpen || !food) return null
 
   const calPer100g = Math.round(food.proteinPer100g * 4 + food.carbsPer100g * 4 + food.fatPer100g * 9)
@@ -24,13 +23,13 @@ export default function FoodModal({ isOpen, food, weight, onWeightChange, onCanc
         </View>
 
         <View style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #1890ff', paddingBottom: '5px', marginBottom: '20px' }}>
-          <Input type="digit" placeholder="请输入食用重量" value={weight} onInput={(e) => onWeightChange(e.detail.value)} style={{ flex: 1, fontSize: '16px', textAlign: 'center' }} autoFocus />
+          <Input type='digit' placeholder='请输入食用重量' value={weight} onInput={(e) => onWeightChange(e.detail.value)} style={{ flex: 1, fontSize: '16px', textAlign: 'center' }} autoFocus />
           <Text style={{ marginLeft: '10px', color: '#333' }}>克 (g)</Text>
         </View>
 
         <View style={{ display: 'flex', justifyContent: 'space-around' }}>
-          <Button size="mini" onClick={onCancel}>取消</Button>
-          <Button size="mini" type="primary" onClick={onConfirm}>确定添加</Button>
+          <Button size='mini' onClick={onCancel} disabled={isSaving}>取消</Button>
+          <Button size='mini' type='primary' loading={isSaving} disabled={isSaving} onClick={onConfirm}>确定添加</Button>
         </View>
       </View>
     </View>

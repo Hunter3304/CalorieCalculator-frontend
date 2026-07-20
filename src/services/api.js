@@ -1,4 +1,5 @@
 import Taro from '@tarojs/taro'
+import { ensureSuccessfulResponse } from '../utils/apiResponse.mjs'
 
 const API_BASE = process.env.TARO_APP_API_BASE || 'http://localhost:8080/api'
 
@@ -13,10 +14,10 @@ export const getDailySummary = (date) => {
 }
 
 // 添加一条饮食记录
-export const addDailyRecord = (data) => {
-  return Taro.request({ url: `${API_BASE}/records`, method: 'POST', data })
+export const addDailyRecord = async (data) => {
+  const response = await Taro.request({ url: `${API_BASE}/records`, method: 'POST', data })
+  return ensureSuccessfulResponse(response)
 }
-
 //修改饮食记录
 export const updateDailyRecord = (id, weight) => {
   return Taro.request({ url: `${API_BASE}/records/${id}`, method: 'PUT', data: { weight } })
