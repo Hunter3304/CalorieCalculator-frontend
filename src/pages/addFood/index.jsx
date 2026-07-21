@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { View, Text, Input, Button } from '@tarojs/components'
-import Taro from '@tarojs/taro'
+import Taro, { useRouter } from '@tarojs/taro'
 // 确保 api.js 中已导出 deleteCustomFood
 import { getFoodsByPage, addDailyRecord, searchFoods, getCustomFoods, deleteCustomFood } from '../../services/api'
 import { getTodayDate } from '../../utils/date'
@@ -11,6 +11,8 @@ import FoodModal from './components/FoodModal'
 import CreateCustomModal from './components/CreateCustomModal'
 
 export default function AddFood() {
+  const router = useRouter()
+  const selectedDate = router.params.date || getTodayDate()
   // --- 1. 状态管理 ---
   const [activeTab, setActiveTab] = useState('recent')
   const [foodList, setFoodList] = useState([])
@@ -108,7 +110,7 @@ export default function AddFood() {
     setIsSaving(true)
     Taro.showLoading({ title: '保存中...', mask: true })
     try {
-      await addDailyRecord({ foodId: currentFood.id, weight, date: getTodayDate() })
+      await addDailyRecord({ foodId: currentFood.id, weight, date: selectedDate })
       setIsModalOpen(false)
       Taro.showToast({ title: '添加成功', icon: 'success' })
       setTimeout(() => Taro.navigateBack(), 600)
@@ -153,6 +155,7 @@ export default function AddFood() {
   return (
     <View style={{ height: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#f7f8fa', position: 'relative' }}>
       <View style={{ padding: '10px 15px', backgroundColor: '#fff', zIndex: 5 }}>
+        <Text style={{ display: 'block', marginBottom: '8px', color: '#475467', fontSize: '13px' }}>记录日期：{selectedDate}</Text>
         <View style={{ backgroundColor: '#f2f2f2', borderRadius: '20px', padding: '8px 15px', display: 'flex', alignItems: 'center' }}>
           <Text style={{ marginRight: '10px', color: '#999' }}>🔍</Text>
           <Input 

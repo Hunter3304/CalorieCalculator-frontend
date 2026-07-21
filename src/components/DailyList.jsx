@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 
-export default function DailyList({ records, onDelete, onUpdate }) {
+export default function DailyList({ records, emptyText = '还没有饮食记录', onDelete, onUpdate }) {
 
   // 点击修改按钮
   const handleEditClick = (item) => {
@@ -41,7 +41,7 @@ export default function DailyList({ records, onDelete, onUpdate }) {
     <View style={{ backgroundColor: '#fff', padding: '15px', borderRadius: '10px', marginBottom: '20px' }}>
       <Text style={{ fontWeight: 'bold', marginBottom: '10px', display: 'block' }}>📝 已吃清单</Text>
       
-      {(!records || records.length === 0) && <Text style={{ color: '#999' }}>今天还没记录哦~</Text>}
+      {(!records || records.length === 0) && <Text style={{ color: '#999' }}>{emptyText}</Text>}
       
       {records && records.map((item, index) => (
         <View key={index} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px dashed #eee' }}>
