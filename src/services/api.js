@@ -13,6 +13,13 @@ export const getDailySummary = (date) => {
   return Taro.request({ url: `${API_BASE}/records/${date}`, method: 'GET' })
 }
 
+export const getCalendarMetadata = (month) => {
+  return Taro.request({
+    url: `${API_BASE}/records/calendar?month=${encodeURIComponent(month)}`,
+    method: 'GET'
+  })
+}
+
 // 添加一条饮食记录
 export const addDailyRecord = async (data) => {
   const response = await Taro.request({ url: `${API_BASE}/records`, method: 'POST', data })
