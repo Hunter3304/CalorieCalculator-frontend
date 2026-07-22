@@ -12,12 +12,17 @@ Cross-platform calorie tracking client built with Taro and React. The primary ta
 
 ## Features
 
-- View today's food records and nutrition summary
+- View food records and nutrition totals for any selectable date
+- Move one day at a time with disabled minimum and maximum boundaries
+- Open a complete natural-month calendar and switch months
+- Distinguish the selected date and dates that already contain records
+- Backfill historical records and plan food records up to seven days ahead
 - Browse and search the food catalog
-- Add multiple foods through a temporary cart
+- Save a selected food directly to the currently selected date
 - Edit food weights or delete daily records
 - Create, edit, and delete custom foods
 - Calculate calories, protein, carbohydrates, and fat through the backend API
+- Ignore stale API responses when users switch dates quickly
 
 ## Prerequisites
 
@@ -30,15 +35,15 @@ Cross-platform calorie tracking client built with Taro and React. The primary ta
 
 The client reads `TARO_APP_API_BASE` and falls back to `http://localhost:8080/api`.
 
-Development configuration in `.env.development`:
+The checked-in development and production environment files currently point to the Tencent Cloud HTTP IP endpoint for experience-version testing:
 
 ```dotenv
-TARO_APP_API_BASE="http://localhost:8080/api"
+TARO_APP_API_BASE="http://124.221.90.240/api"
 ```
 
-Production configuration in `.env.production` points to the deployed Railway backend. Change it before deploying to a different host.
+The JavaScript fallback is used only when no environment value is injected. `npm run verify:weapp` verifies that the production bundle uses the configured Tencent Cloud API and does not contain unsupported optional-chaining or nullish-coalescing tokens.
 
-For a physical phone or Mini Program device preview, `localhost` refers to the phone itself, not the development computer. Use the computer's LAN IP, for example `http://192.168.1.20:8080/api`, and make sure the firewall allows port 8080. WeChat production requests also require an HTTPS domain registered in the Mini Program console.
+The HTTP IP endpoint works only for approved development/experience accounts with Developer Debugging enabled. A formal release must use an ICP-filed HTTPS domain, for example `https://api.example.top/api`, and register `https://api.example.top` as the WeChat `request` domain without the `/api` path.
 
 ## Install dependencies
 
@@ -69,28 +74,40 @@ npm run dev:h5
 ## Production builds
 
 ```powershell
-npm run build:weapp
+D:\AAA\app\NodeJS\npm.cmd test
+D:\AAA\app\NodeJS\npm.cmd run verify:weapp
 npm run build:h5
 ```
 
+`verify:weapp` builds the WeChat production package into `dist/` and runs the bundle compatibility check. The user uploads `dist/` through WeChat Developer Tools; automated code changes do not publish a Mini Program version.
+
 Other configured targets include Alipay, ByteDance, Baidu Swan, QQ, JD, React Native, and Harmony hybrid. See `package.json` for their scripts.
 
+## Calendar behavior
+
+- The backend provides `minDate`, `maxDate`, and recorded dates for the displayed month.
+- Empty dates inside the range remain selectable and show zero totals.
+- The add-food route receives the selected `yyyy-MM-dd` date explicitly.
+- Returning from add-food preserves the selected date and refreshes the summary.
+- Month grids support 28, 29, 30, and 31-day natural months with weekday alignment.
 ## Project structure
+
 
 ```text
 src/
-  components/       Shared daily-list and nutrition components
-  pages/index/      Today's records and nutrition summary
-  pages/addFood/    Food browser, search, cart, and custom foods
+  components/       Daily-list, nutrition, and CalendarPicker components
+  pages/index/      Date navigation, calendar, records, and nutrition summary
+  pages/addFood/    Food browser, search, date-aware save, and custom foods
   services/api.js   Backend HTTP requests and API base URL
-  utils/date.js     Date helper
+  utils/            Local-date, natural-month, and API-response helpers
+tests/              API response, calendar, and WeChat bundle compatibility tests
 config/             Taro development and production configuration
 dist/               Generated platform build output
 ```
 
 ## Backend integration
 
-The frontend expects the backend at `http://localhost:8080/api` during local development. Confirm it is running before starting the client:
+The checked-in environments use the Tencent Cloud backend. To run entirely locally, change `.env.development` to `http://localhost:8080/api`, start PostgreSQL and Spring Boot, and confirm the API before starting the client:
 
 ```powershell
 Invoke-RestMethod "http://localhost:8080/api/foods/page?page=1&size=10"
@@ -101,9 +118,20 @@ If requests fail:
 - Verify PostgreSQL and the Spring Boot backend are running.
 - Verify `.env.development` contains the correct API URL.
 - Restart the Taro watcher after changing an `.env` file.
-- For device testing, replace `localhost` with the computer's LAN IP.
+- For device testing, use a network-reachable API; the current HTTP IP requires Developer Debugging in an experience version.
 - Check Windows Firewall and WeChat request-domain restrictions.
 
+## Formal release checklist
+
+1. Complete domain real-name verification and ICP filing.
+2. Point an API subdomain to the Tencent Cloud server.
+3. Configure a trusted TLS certificate and HTTPS on Nginx.
+4. Change `.env.production` to the HTTPS API URL.
+5. Register the HTTPS origin as the WeChat `request` legal domain.
+6. Run `npm run verify:weapp`.
+7. Test on a physical device with Developer Debugging disabled.
+8. Upload, submit for review, and publish through WeChat Developer Tools and the Mini Program console.
 ## Related project
+
 
 The sibling `CalorieCalculator-backend` directory contains the Spring Boot API and its database setup instructions.
