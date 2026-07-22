@@ -81,10 +81,18 @@ npm run dev:h5
 ```powershell
 D:\AAA\app\NodeJS\npm.cmd test
 D:\AAA\app\NodeJS\npm.cmd run verify:weapp
-npm run build:h5
+D:\AAA\app\NodeJS\npm.cmd run build:h5
 ```
 
 `verify:weapp` builds the WeChat production package into `dist/` and runs the bundle compatibility check. The user uploads `dist/` through WeChat Developer Tools; automated code changes do not publish a Mini Program version.
+
+Current release status:
+
+- 11 source-level frontend tests pass.
+- The production WeChat build and bundle compatibility check pass, and the generated API URL is the Tencent Cloud backend rather than localhost.
+- The body-weight backend is deployed and healthy in production.
+- The updated `dist` package has not yet been uploaded as a new WeChat experience version; this remains a manual user step.
+- The H5 production build passes with the existing entrypoint-size warning. In-app visual browser QA could not start because of a Windows sandbox setup failure, so no visual-browser approval is claimed.
 
 Other configured targets include Alipay, ByteDance, Baidu Swan, QQ, JD, React Native, and Harmony hybrid. See `package.json` for their scripts.
 
@@ -107,7 +115,7 @@ src/
   pages/weightTrend/   Presets, end-date calendar, and line chart
   services/api.js   Backend HTTP requests and API base URL
   utils/            Local-date, natural-month, and API-response helpers
-tests/              API response, calendar, and WeChat bundle compatibility tests
+tests/              API response, calendar, weight-trend, and WeChat bundle compatibility tests
 config/             Taro development and production configuration
 dist/               Generated platform build output
 ```
