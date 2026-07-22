@@ -2,6 +2,8 @@
 
 Cross-platform calorie tracking client built with Taro and React. The primary target is a WeChat Mini Program, and the project can also be built for H5 and other platforms supported by the configured Taro plugins.
 
+Project handoff, iteration history, and iteration plans are indexed in [`doc/README.md`](doc/README.md).
+
 ## Technology stack
 
 - Taro 4.2.0
