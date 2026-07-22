@@ -25,6 +25,9 @@ Project handoff, iteration history, and iteration plans are indexed in [`doc/REA
 - Create, edit, and delete custom foods
 - Calculate calories, protein, carbohydrates, and fat through the backend API
 - Ignore stale API responses when users switch dates quickly
+- Record, edit, and delete one body weight per date
+- Show carried-forward weight on dates without a real record
+- Explore rolling 7-day, 30-day, and 365-day body-weight trends
 
 ## Prerequisites
 
@@ -100,6 +103,8 @@ src/
   components/       Daily-list, nutrition, and CalendarPicker components
   pages/index/      Date navigation, calendar, records, and nutrition summary
   pages/addFood/    Food browser, search, date-aware save, and custom foods
+  pages/weightEditor/  Independent body-weight create/edit flow
+  pages/weightTrend/   Presets, end-date calendar, and line chart
   services/api.js   Backend HTTP requests and API base URL
   utils/            Local-date, natural-month, and API-response helpers
 tests/              API response, calendar, and WeChat bundle compatibility tests
@@ -107,6 +112,14 @@ config/             Taro development and production configuration
 dist/               Generated platform build output
 ```
 
+## Body-weight behavior
+
+- The homepage uses two equal circular actions for adding food and recording weight.
+- Weight belongs to the selected homepage date; future dates show an explanatory message instead of opening the editor.
+- A selected date without a real weight displays the most recent earlier record and identifies its source date.
+- Editing a carried value updates the actual source record. Delete is available only for a real record on the selected date.
+- The trend page offers rolling 7-, 30-, and 365-day views ending on a selectable date no later than today.
+- Dates before the first real weight remain blank; later missing dates carry the last real weight forward.
 ## Backend integration
 
 The checked-in environments use the Tencent Cloud backend. To run entirely locally, change `.env.development` to `http://localhost:8080/api`, start PostgreSQL and Spring Boot, and confirm the API before starting the client:

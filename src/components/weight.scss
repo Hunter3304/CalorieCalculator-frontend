@@ -1,0 +1,105 @@
+/* stylelint-disable color-function-notation, color-function-alias-notation, alpha-value-notation */
+.weight-card {
+  margin-bottom: 18px;
+  overflow: hidden;
+  border: 1px solid #dceee1;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 10px 30px rgba(68, 113, 79, 0.08);
+}
+
+.weight-card-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.weight-card-eyebrow,
+.weight-card-value,
+.weight-card-caption,
+.weight-card-empty {
+  display: block;
+}
+
+.weight-card-eyebrow {
+  color: #587562;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.weight-card-value {
+  margin-top: 8px;
+  color: #245f39;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.weight-card-caption {
+  margin-top: 4px;
+  color: #8aa091;
+  font-size: 12px;
+}
+
+.weight-card-empty {
+  margin-top: 12px;
+  color: #91a298;
+  font-size: 16px;
+}
+
+.weight-card-trend {
+  color: #4f9f68;
+  font-size: 14px;
+}
+
+.weight-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 24px;
+  padding: 12px 20px;
+  border-top: 1px solid #edf5ef;
+}
+
+.weight-card-action {
+  color: #3f8b58;
+  font-size: 14px;
+}
+
+.weight-card-action.is-delete {
+  color: #a16a6a;
+}
+
+.weight-chart-wrap {
+  padding: 10px 4px 4px;
+}
+
+.weight-chart-canvas {
+  width: 335px;
+  height: 210px;
+  margin: 0 auto;
+}
+
+.weight-chart-legend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #84998b;
+  font-size: 11px;
+}
+
+.weight-chart-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2f7d4a;
+}
+
+.weight-chart-empty {
+  display: flex;
+  height: 220px;
+  align-items: center;
+  justify-content: center;
+  color: #8ba094;
+  font-size: 14px;
+}

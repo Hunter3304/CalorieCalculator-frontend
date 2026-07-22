@@ -1,0 +1,90 @@
+/* stylelint-disable color-function-notation, color-function-alias-notation, alpha-value-notation */
+.weight-editor-page {
+  min-height: 100vh;
+  padding: 36px 20px;
+  box-sizing: border-box;
+  background: linear-gradient(160deg, #eff8f1 0%, #f9fcfa 52%, #e8f5eb 100%);
+}
+
+.weight-editor-card {
+  padding: 34px 24px 28px;
+  border: 1px solid #dceee1;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.96);
+  text-align: center;
+  box-shadow: 0 16px 45px rgba(62, 105, 73, 0.1);
+}
+
+.weight-editor-icon, .weight-editor-title, .weight-editor-date, .weight-editor-note, .weight-editor-help {
+  display: block;
+}
+
+.weight-editor-icon {
+  font-size: 42px;
+}
+
+.weight-editor-title {
+  margin-top: 12px;
+  color: #254f32;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.weight-editor-date {
+  margin-top: 8px;
+  color: #789080;
+  font-size: 14px;
+}
+
+.weight-editor-note {
+  margin-top: 16px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #f2f8f3;
+  color: #66806d;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.weight-editor-input-wrap {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+  padding: 14px 18px;
+  border: 2px solid #a8d3b3;
+  border-radius: 18px;
+  background: #fbfefb;
+}
+
+.weight-editor-input {
+  flex: 1;
+  color: #245f39;
+  font-size: 34px;
+  font-weight: 700;
+  text-align: right;
+}
+
+.weight-editor-unit {
+  margin-left: 10px;
+  color: #66806d;
+  font-size: 18px;
+}
+
+.weight-editor-help {
+  margin-top: 10px;
+  color: #98aa9d;
+  font-size: 12px;
+}
+
+.weight-editor-save {
+  margin-top: 28px;
+  border: 0;
+  border-radius: 16px;
+  background: #4f9f68;
+  color: #fff;
+  font-size: 17px;
+}
+
+.weight-editor-save::after {
+  border: 0;
+}

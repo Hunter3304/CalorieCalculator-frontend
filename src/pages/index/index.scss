@@ -1,15 +1,21 @@
+/* stylelint-disable color-function-notation, color-function-alias-notation, alpha-value-notation */
 .index-page {
   min-height: 100vh;
   padding: 24px 20px 40px;
   box-sizing: border-box;
-  background: #f5f7fa;
+  background: linear-gradient(160deg, #eaf6ed 0%, #fbfdfb 48%, #edf7ef 100%);
 }
 
 .date-navigation {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 8px 22px;
+  margin-bottom: 22px;
+  padding: 16px 10px;
+  border: 1px solid rgba(209, 231, 215, 0.9);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 10px 28px rgba(68, 113, 79, 0.07);
 }
 
 .date-arrow {
@@ -19,22 +25,19 @@
   padding: 0;
   border: 0;
   border-radius: 22px;
-  background: #1677ff;
+  background: #4f9f68;
   color: #fff;
   font-size: 30px;
   line-height: 42px;
 }
 
-.date-arrow::after,
-.calendar-month-button::after,
-.calendar-close-button::after {
+.date-arrow::after, .quick-action::after {
   border: 0;
 }
 
-.date-arrow.is-disabled,
-.calendar-month-button.is-disabled {
-  background: #e5e7eb;
-  color: #a8adb5;
+.date-arrow.is-disabled {
+  background: #e4ece6;
+  color: #a9b8ad;
 }
 
 .date-trigger {
@@ -42,7 +45,7 @@
   flex: 1;
   flex-direction: column;
   align-items: center;
-  color: #1f2937;
+  color: #294d34;
 }
 
 .date-title {
@@ -52,129 +55,49 @@
 
 .date-hint {
   margin-top: 4px;
-  color: #8a919e;
+  color: #8ba094;
   font-size: 12px;
 }
 
-.add-food-button {
-  margin-bottom: 20px;
-  border-radius: 10px;
-  background: #1677ff;
-}
-
-.calendar-overlay {
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+.quick-actions {
   display: flex;
-  align-items: flex-end;
-  background: rgba(17, 24, 39, 0.45);
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 24px;
 }
 
-.calendar-panel {
-  width: 100%;
-  padding: 10px 18px 24px;
-  box-sizing: border-box;
-  border-radius: 22px 22px 0 0;
-  background: #fff;
-}
-
-.calendar-handle {
-  width: 42px;
-  height: 5px;
-  margin: 0 auto 14px;
-  border-radius: 3px;
-  background: #d9dde4;
-}
-
-.calendar-header {
+.quick-action {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 14px;
-}
-
-.calendar-month-button {
-  width: 40px;
-  height: 40px;
+  width: 104px;
+  height: 104px;
   margin: 0;
   padding: 0;
-  border-radius: 20px;
-  background: #eef5ff;
-  color: #1677ff;
-  font-size: 28px;
-  line-height: 38px;
-}
-
-.calendar-month-label {
-  padding: 8px 22px;
-  color: #1f2937;
-  font-size: 18px;
-  font-weight: 700;
-}
-
-.calendar-weekdays,
-.calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-}
-
-.calendar-weekdays {
-  padding-bottom: 8px;
-  color: #9aa1ad;
-  font-size: 13px;
-  text-align: center;
-}
-
-.calendar-cell {
-  position: relative;
-  display: flex;
-  height: 48px;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #303744;
-}
-
-.calendar-day-number {
-  display: flex;
-  width: 34px;
-  height: 34px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 17px;
-  font-size: 15px;
-}
-
-.calendar-cell.is-selected .calendar-day-number {
-  background: #1677ff;
+  border: 1px solid #b8ddc1;
+  border-radius: 52px;
+  background: linear-gradient(145deg, #62ad78, #438f5b);
   color: #fff;
-  font-weight: 700;
+  box-shadow: 0 10px 24px rgba(64, 137, 86, 0.2);
+  line-height: 1;
 }
 
-.calendar-cell.is-disabled {
-  color: #c8ccd3;
+.quick-action.is-weight {
+  background: linear-gradient(145deg, #75b78a, #4f9f68);
 }
 
-.calendar-record-marker {
-  position: absolute;
-  bottom: 2px;
-  width: 14px;
-  height: 4px;
-  border-radius: 2px;
-  background: #344054;
+.quick-action-icon, .quick-action-label {
+  display: block;
 }
 
-.calendar-cell.is-selected .calendar-record-marker {
-  background: #0b4ea2;
+.quick-action-icon {
+  font-size: 28px;
+  line-height: 32px;
 }
 
-.calendar-close-button {
-  margin-top: 16px;
-  border-radius: 10px;
-  background: #f1f5f9;
-  color: #475467;
-  font-size: 15px;
+.quick-action-label {
+  margin-top: 7px;
+  font-size: 13px;
+  font-weight: 600;
 }

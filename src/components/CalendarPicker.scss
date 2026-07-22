@@ -1,0 +1,122 @@
+/* stylelint-disable color-function-notation, color-function-alias-notation, alpha-value-notation */
+.calendar-overlay {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  background: rgba(31, 60, 40, 0.38);
+}
+
+.calendar-panel {
+  width: 100%;
+  padding: 10px 18px 24px;
+  box-sizing: border-box;
+  border-radius: 24px 24px 0 0;
+  background: #fbfefb;
+}
+
+.calendar-handle {
+  width: 42px;
+  height: 5px;
+  margin: 0 auto 14px;
+  border-radius: 3px;
+  background: #ccded1;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.calendar-month-button {
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  border-radius: 20px;
+  background: #e8f5eb;
+  color: #3f8b58;
+  font-size: 28px;
+  line-height: 38px;
+}
+
+.calendar-month-button::after, .calendar-close-button::after {
+  border: 0;
+}
+
+.calendar-month-button.is-disabled {
+  background: #edf1ee;
+  color: #b2beb5;
+}
+
+.calendar-month-label {
+  padding: 8px 22px;
+  color: #294d34;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.calendar-weekdays, .calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.calendar-weekdays {
+  padding-bottom: 8px;
+  color: #91a298;
+  font-size: 13px;
+  text-align: center;
+}
+
+.calendar-cell {
+  position: relative;
+  display: flex;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  color: #36533f;
+}
+
+.calendar-day-number {
+  display: flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 17px;
+  font-size: 15px;
+}
+
+.calendar-cell.is-selected .calendar-day-number {
+  background: #4f9f68;
+  color: #fff;
+  font-weight: 700;
+}
+
+.calendar-cell.is-disabled {
+  color: #c8d2ca;
+}
+
+.calendar-record-marker {
+  position: absolute;
+  bottom: 2px;
+  width: 14px;
+  height: 4px;
+  border-radius: 2px;
+  background: #52705c;
+}
+
+.calendar-cell.is-selected .calendar-record-marker {
+  background: #245f39;
+}
+
+.calendar-close-button {
+  margin-top: 16px;
+  border-radius: 12px;
+  background: #eaf4ec;
+  color: #44604c;
+  font-size: 15px;
+}

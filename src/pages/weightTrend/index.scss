@@ -1,0 +1,92 @@
+/* stylelint-disable color-function-notation, color-function-alias-notation, alpha-value-notation */
+.weight-trend-page {
+  min-height: 100vh;
+  padding: 24px 20px 40px;
+  box-sizing: border-box;
+  background: linear-gradient(160deg, #eaf6ed 0%, #f9fcfa 52%, #eef8f0 100%);
+}
+
+.weight-trend-header {
+  text-align: center;
+}
+
+.weight-trend-kicker, .weight-trend-range {
+  display: block;
+}
+
+.weight-trend-kicker {
+  color: #6c8975;
+  font-size: 13px;
+  letter-spacing: 3px;
+}
+
+.weight-trend-date {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 8px;
+  color: #28583a;
+  font-size: 23px;
+  font-weight: 700;
+}
+
+.weight-trend-date-hint {
+  color: #6f9179;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.weight-trend-range {
+  margin-top: 8px;
+  color: #91a298;
+  font-size: 12px;
+}
+
+.weight-trend-presets {
+  display: flex;
+  gap: 10px;
+  margin: 24px 0 16px;
+  padding: 5px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.weight-trend-preset {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: #6c8674;
+  font-size: 14px;
+  line-height: 38px;
+}
+
+.weight-trend-preset::after {
+  border: 0;
+}
+
+.weight-trend-preset.is-active {
+  background: #4f9f68;
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(79, 159, 104, 0.2);
+}
+
+.weight-trend-card {
+  min-height: 270px;
+  padding: 16px 6px;
+  overflow: hidden;
+  border: 1px solid #dceee1;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 12px 35px rgba(68, 113, 79, 0.08);
+}
+
+.weight-trend-loading {
+  display: flex;
+  height: 220px;
+  align-items: center;
+  justify-content: center;
+  color: #84998b;
+}

@@ -11,7 +11,7 @@
   },
   "scripts": {
     "prepare": "husky",
-    "test": "node --test tests/*.test.mjs",
+    "test": "node --test tests/apiResponse.test.mjs tests/calendar.test.mjs tests/weightTrend.test.mjs",
     "verify:weapp": "npm run build:weapp && node --test tests/weappBundleCompatibility.test.mjs",
     "new": "taro new",
     "build:weapp": "taro build --type weapp",

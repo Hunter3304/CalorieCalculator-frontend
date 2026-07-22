@@ -7,6 +7,7 @@ import {
   isDateInRange,
   shiftMonth
 } from '../utils/calendar.mjs'
+import './CalendarPicker.scss'
 
 const WEEKDAYS = ['日', '一', '二', '三', '四', '五', '六']
 
