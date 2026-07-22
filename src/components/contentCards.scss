@@ -1,0 +1,81 @@
+/* stylelint-disable color-function-notation, color-function-alias-notation, alpha-value-notation */
+.content-card {
+  margin-bottom: 18px;
+  padding: 18px;
+  border: 1px solid #dceee1;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 10px 30px rgba(68, 113, 79, 0.07);
+}
+
+.content-card-title {
+  display: block;
+  margin-bottom: 12px;
+  color: #315c3e;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.daily-empty {
+  color: #91a298;
+  font-size: 14px;
+}
+
+.daily-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 0;
+  border-bottom: 1px dashed #e2eee5;
+}
+
+.daily-row:last-child {
+  border-bottom: 0;
+}
+
+.daily-name, .daily-calories {
+  display: block;
+}
+
+.daily-name {
+  color: #36533f;
+}
+
+.daily-calories {
+  margin-top: 4px;
+  color: #b46a62;
+  font-size: 14px;
+}
+
+.daily-actions {
+  display: flex;
+  gap: 18px;
+}
+
+.daily-action {
+  color: #4f9f68;
+  font-size: 14px;
+}
+
+.daily-action.is-delete {
+  color: #91a298;
+}
+
+.nutrition-total {
+  display: block;
+  margin-bottom: 12px;
+  color: #315c3e;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.nutrition-line {
+  display: block;
+  margin-bottom: 7px;
+  color: #607668;
+  font-size: 14px;
+}
+
+.nutrition-line:last-child {
+  margin-bottom: 0;
+}

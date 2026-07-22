@@ -35,6 +35,32 @@ export const deleteDailyRecord = (id) => {
   return Taro.request({ url: `${API_BASE}/records/${id}`, method: 'DELETE' })
 }
 
+export const getWeightSnapshot = (date) => {
+  return Taro.request({ url: `${API_BASE}/weights/${date}`, method: 'GET' })
+}
+
+export const saveWeightRecord = async (date, weightKg) => {
+  const response = await Taro.request({ url: `${API_BASE}/weights/${date}`, method: 'PUT', data: { weightKg } })
+  return ensureSuccessfulResponse(response)
+}
+
+export const updateWeightRecord = async (id, weightKg) => {
+  const response = await Taro.request({ url: `${API_BASE}/weights/records/${id}`, method: 'PUT', data: { weightKg } })
+  return ensureSuccessfulResponse(response)
+}
+
+export const deleteWeightRecord = async (id) => {
+  const response = await Taro.request({ url: `${API_BASE}/weights/records/${id}`, method: 'DELETE' })
+  return ensureSuccessfulResponse(response)
+}
+
+export const getWeightTrend = (startDate, endDate) => {
+  return Taro.request({
+    url: `${API_BASE}/weights/trend?startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`,
+    method: 'GET'
+  })
+}
+
 // 获取分页食物列表
 export const getFoodsByPage = (page = 1, size = 10) => {
   return Taro.request({
