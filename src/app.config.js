@@ -3,7 +3,9 @@ export default defineAppConfig({
     'pages/index/index',
     'pages/addFood/index',
     'pages/weightEditor/index',
-    'pages/weightTrend/index'
+    'pages/weightTrend/index',
+    'pages/circumferenceEditor/index',
+    'pages/circumferenceTrend/index'
   ],
   window: {
     backgroundTextStyle: 'light',
