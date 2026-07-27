@@ -1,0 +1,125 @@
+/* stylelint-disable color-function-notation, color-function-alias-notation, alpha-value-notation */
+.circumference-editor-page {
+  min-height: 100vh;
+  padding: 28px 20px 40px;
+  box-sizing: border-box;
+  background: linear-gradient(160deg, #eff8f1 0%, #f9fcfa 52%, #e8f5eb 100%);
+}
+
+.circumference-editor-card {
+  padding: 28px 20px;
+  border: 1px solid #dceee1;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 16px 45px rgba(62, 105, 73, 0.1);
+}
+
+.circumference-editor-icon,
+.circumference-editor-title,
+.circumference-editor-date,
+.circumference-editor-note,
+.circumference-editor-help {
+  display: block;
+  text-align: center;
+}
+
+.circumference-editor-icon {
+  font-size: 38px;
+}
+
+.circumference-editor-title {
+  margin-top: 8px;
+  color: #254f32;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.circumference-editor-date {
+  margin-top: 7px;
+  color: #789080;
+  font-size: 14px;
+}
+
+.circumference-editor-note {
+  margin-top: 16px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #f2f8f3;
+  color: #66806d;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.circumference-editor-grid {
+  display: grid;
+  margin-top: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px 12px;
+}
+
+.circumference-editor-field {
+  min-width: 0;
+}
+
+.circumference-editor-field-header {
+  display: flex;
+  min-height: 21px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.circumference-editor-label {
+  color: #476452;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.circumference-editor-inherited {
+  color: #8ca294;
+  font-size: 10px;
+}
+
+.circumference-editor-input-wrap {
+  display: flex;
+  align-items: center;
+  padding: 10px 11px;
+  border: 1px solid #b8ddc1;
+  border-radius: 14px;
+  background: #fbfefb;
+}
+
+.circumference-editor-input {
+  min-width: 0;
+  flex: 1;
+  color: #245f39;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: right;
+}
+
+.circumference-editor-unit {
+  margin-left: 6px;
+  color: #789080;
+  font-size: 12px;
+}
+
+.circumference-editor-help {
+  margin-top: 18px;
+  color: #98aa9d;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.circumference-editor-save {
+  margin-top: 22px;
+  border: 0;
+  border-radius: 16px;
+  background: #4f9f68;
+  color: #fff;
+  font-size: 17px;
+}
+
+.circumference-editor-save::after {
+  border: 0;
+}

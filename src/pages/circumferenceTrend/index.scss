@@ -1,0 +1,109 @@
+/* stylelint-disable color-function-notation, color-function-alias-notation, alpha-value-notation */
+.circumference-trend-page {
+  min-height: 100vh;
+  padding: 24px 20px 40px;
+  box-sizing: border-box;
+  background: linear-gradient(160deg, #eaf6ed 0%, #f9fcfa 52%, #eef8f0 100%);
+}
+
+.circumference-trend-header {
+  text-align: center;
+}
+
+.circumference-trend-kicker,
+.circumference-trend-range {
+  display: block;
+}
+
+.circumference-trend-kicker {
+  color: #6c8975;
+  font-size: 13px;
+  letter-spacing: 3px;
+}
+
+.circumference-trend-selector {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 9px;
+  padding: 8px 16px;
+  border: 1px solid #cce4d2;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.88);
+  color: #28583a;
+  font-size: 23px;
+  font-weight: 700;
+}
+
+.circumference-trend-selector-hint,
+.circumference-trend-date-hint {
+  color: #6f9179;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.circumference-trend-date {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+  color: #416a4e;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.circumference-trend-range {
+  margin-top: 7px;
+  color: #91a298;
+  font-size: 12px;
+}
+
+.circumference-trend-presets {
+  display: flex;
+  gap: 10px;
+  margin: 22px 0 16px;
+  padding: 5px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.circumference-trend-preset {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: #6c8674;
+  font-size: 14px;
+  line-height: 38px;
+}
+
+.circumference-trend-preset::after {
+  border: 0;
+}
+
+.circumference-trend-preset.is-active {
+  background: #4f9f68;
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(79, 159, 104, 0.2);
+}
+
+.circumference-trend-card {
+  min-height: 270px;
+  padding: 16px 6px;
+  overflow: hidden;
+  border: 1px solid #dceee1;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 12px 35px rgba(68, 113, 79, 0.08);
+}
+
+.circumference-trend-loading {
+  display: flex;
+  height: 220px;
+  align-items: center;
+  justify-content: center;
+  color: #84998b;
+}

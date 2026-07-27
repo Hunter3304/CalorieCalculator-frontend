@@ -28,6 +28,8 @@ Project handoff, iteration history, and iteration plans are indexed in [`doc/REA
 - Record, edit, and delete one body weight per date
 - Show carried-forward weight on dates without a real record
 - Explore rolling 7-day, 30-day, and 365-day body-weight trends
+- Record any subset of six body-circumference measurements in centimeters
+- View independently carried circumference values and select one measurement for trend analysis
 
 ## Prerequisites
 
@@ -113,6 +115,8 @@ src/
   pages/addFood/    Food browser, search, date-aware save, and custom foods
   pages/weightEditor/  Independent body-weight create/edit flow
   pages/weightTrend/   Presets, end-date calendar, and line chart
+  pages/circumferenceEditor/  Six-field sparse circumference editor
+  pages/circumferenceTrend/   Measurement selector, presets, calendar, and line chart
   services/api.js   Backend HTTP requests and API base URL
   utils/            Local-date, natural-month, and API-response helpers
 tests/              API response, calendar, weight-trend, and WeChat bundle compatibility tests
@@ -128,6 +132,14 @@ dist/               Generated platform build output
 - Editing a carried value updates the actual source record. Delete is available only for a real record on the selected date.
 - The trend page offers rolling 7-, 30-, and 365-day views ending on a selectable date no later than today.
 - Dates before the first real weight remain blank; later missing dates carry the last real weight forward.
+## Body-circumference behavior
+
+- The homepage offers a third green action for recording chest, waist, hip, arm, thigh, and calf circumference.
+- Every supplied value uses centimeters, must be positive, and accepts at most one decimal place.
+- Fields are optional and inherit independently from their latest earlier real value; never-recorded fields display `--`.
+- An all-blank new save creates no empty database row. Clearing a selected-date override makes that field fall back to an earlier value.
+- The homepage card shows all six effective values. Deleting removes the selected date's complete sparse record.
+- The trend page defaults to waist circumference and uses a dropdown to show one measurement across rolling 7-, 30-, or 365-day ranges.
 ## Backend integration
 
 The checked-in environments use the Tencent Cloud backend. To run entirely locally, change `.env.development` to `http://localhost:8080/api`, start PostgreSQL and Spring Boot, and confirm the API before starting the client:

@@ -3,16 +3,20 @@ import { Button, Text, View } from '@tarojs/components'
 import Taro, { useDidShow } from '@tarojs/taro'
 
 import {
+  deleteCircumferenceRecord,
   deleteDailyRecord,
   deleteWeightRecord,
   getCalendarMetadata,
+  getCircumferenceSnapshot,
   getDailySummary,
   getWeightSnapshot,
   updateDailyRecord
 } from '../../services/api'
 import { getTodayDate } from '../../utils/date'
 import { addDays, formatDisplayDate, getMonthKey, isDateInRange } from '../../utils/calendar.mjs'
+import { createEmptyCircumferenceSnapshot } from '../../utils/circumference.mjs'
 import CalendarPicker from '../../components/CalendarPicker'
+import CircumferenceSummaryCard from '../../components/CircumferenceSummaryCard'
 import DailyList from '../../components/DailyList'
 import NutritionSummary from '../../components/NutritionSummary'
 import WeightSummaryCard from '../../components/WeightSummaryCard'
@@ -33,12 +37,16 @@ export default function Index() {
   const [dailyRecords, setDailyRecords] = useState([])
   const [summary, setSummary] = useState({ date: today })
   const [weightSnapshot, setWeightSnapshot] = useState(emptyWeight(today))
+  const [circumferenceSnapshot, setCircumferenceSnapshot] = useState(
+    createEmptyCircumferenceSnapshot(today)
+  )
   const [calendarOpen, setCalendarOpen] = useState(false)
   const [displayMonth, setDisplayMonth] = useState(getMonthKey(today))
   const [metadata, setMetadata] = useState({ minDate: today, maxDate: addDays(today, 7), recordedDates: [] })
   const summaryRequest = useRef(0)
   const metadataRequest = useRef(0)
   const weightRequest = useRef(0)
+  const circumferenceRequest = useRef(0)
 
   const fetchSummary = async (date) => {
     const requestId = ++summaryRequest.current
@@ -72,6 +80,24 @@ export default function Index() {
     }
   }
 
+  const fetchCircumference = async (date) => {
+    const requestId = ++circumferenceRequest.current
+    try {
+      const response = await getCircumferenceSnapshot(date)
+      if (
+        requestId === circumferenceRequest.current
+        && response.statusCode === 200
+        && response.data
+      ) {
+        setCircumferenceSnapshot(response.data)
+      }
+    } catch (error) {
+      if (requestId === circumferenceRequest.current) {
+        setCircumferenceSnapshot(createEmptyCircumferenceSnapshot(date))
+        Taro.showToast({ title: '围度记录加载失败', icon: 'none' })
+      }
+    }
+  }
   const fetchMetadata = async (month) => {
     const requestId = ++metadataRequest.current
     try {
@@ -94,6 +120,7 @@ export default function Index() {
     setDisplayMonth(month)
     fetchSummary(date)
     fetchWeight(date)
+    fetchCircumference(date)
     fetchMetadata(month)
   }
 
@@ -181,6 +208,38 @@ export default function Index() {
     Taro.navigateTo({ url: `/pages/weightTrend/index?endDate=${currentDate}${first}` })
   }
 
+  const recordCircumference = () => {
+    if (currentDate > today) {
+      Taro.showToast({ title: '未来日期不能记录围度', icon: 'none' })
+      return
+    }
+    Taro.navigateTo({ url: `/pages/circumferenceEditor/index?date=${currentDate}` })
+  }
+
+  const deleteSelectedCircumference = () => {
+    if (!circumferenceSnapshot.recordId) return
+    Taro.showModal({
+      title: '删除围度记录',
+      content: `确定删除 ${formatDisplayDate(currentDate)} 的围度记录吗？`,
+      success: async (result) => {
+        if (!result.confirm) return
+        Taro.showLoading({ title: '删除中...' })
+        try {
+          await deleteCircumferenceRecord(circumferenceSnapshot.recordId)
+          Taro.showToast({ title: '已删除', icon: 'success' })
+          fetchCircumference(currentDate)
+        } catch (error) {
+          Taro.showToast({ title: '删除失败', icon: 'none' })
+        } finally { Taro.hideLoading() }
+      }
+    })
+  }
+
+  const openCircumferenceTrend = () => {
+    Taro.navigateTo({
+      url: `/pages/circumferenceTrend/index?endDate=${currentDate}&type=waist`
+    })
+  }
   const previousDisabled = currentDate <= metadata.minDate
   const nextDisabled = currentDate >= metadata.maxDate
 
@@ -201,11 +260,19 @@ export default function Index() {
         </Button>
         <Button className='quick-action is-weight' onClick={recordWeight}>
           <Text className='quick-action-icon'>⚖</Text><Text className='quick-action-label'>记录体重</Text>
+        </Button>        <Button className='quick-action is-circumference' onClick={recordCircumference}>
+          <Text className='quick-action-icon'>📏</Text><Text className='quick-action-label'>记录围度</Text>
         </Button>
       </View>
 
       <DailyList records={dailyRecords} emptyText='这个日期还没有饮食记录' onDelete={handleDeleteRecord} onUpdate={handleUpdateRecord} />
       <WeightSummaryCard snapshot={weightSnapshot} onEdit={editDisplayedWeight} onDelete={deleteSelectedWeight} onOpenTrend={openWeightTrend} />
+      <CircumferenceSummaryCard
+        snapshot={circumferenceSnapshot}
+        onEdit={recordCircumference}
+        onDelete={deleteSelectedCircumference}
+        onOpenTrend={openCircumferenceTrend}
+      />
       <NutritionSummary summary={summary} />
 
       <CalendarPicker

@@ -60,6 +60,33 @@ export const getWeightTrend = (startDate, endDate) => {
     method: 'GET'
   })
 }
+export const getCircumferenceSnapshot = (date) => {
+  return Taro.request({ url: `${API_BASE}/circumferences/${date}`, method: 'GET' })
+}
+
+export const saveCircumferenceRecord = async (date, data) => {
+  const response = await Taro.request({
+    url: `${API_BASE}/circumferences/${date}`,
+    method: 'PUT',
+    data
+  })
+  return ensureSuccessfulResponse(response)
+}
+
+export const deleteCircumferenceRecord = async (id) => {
+  const response = await Taro.request({
+    url: `${API_BASE}/circumferences/records/${id}`,
+    method: 'DELETE'
+  })
+  return ensureSuccessfulResponse(response)
+}
+
+export const getCircumferenceTrend = (type, startDate, endDate) => {
+  return Taro.request({
+    url: `${API_BASE}/circumferences/trend?type=${encodeURIComponent(type)}&startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`,
+    method: 'GET'
+  })
+}
 
 // 获取分页食物列表
 export const getFoodsByPage = (page = 1, size = 10) => {

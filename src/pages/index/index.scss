@@ -62,21 +62,21 @@
 .quick-actions {
   display: flex;
   justify-content: center;
-  gap: 30px;
+  gap: 12px;
   margin-bottom: 24px;
 }
 
 .quick-action {
   display: flex;
-  width: 104px;
-  height: 104px;
+  width: 96px;
+  height: 96px;
   margin: 0;
   padding: 0;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   border: 1px solid #b8ddc1;
-  border-radius: 52px;
+  border-radius: 48px;
   background: linear-gradient(145deg, #62ad78, #438f5b);
   color: #fff;
   box-shadow: 0 10px 24px rgba(64, 137, 86, 0.2);
@@ -85,6 +85,10 @@
 
 .quick-action.is-weight {
   background: linear-gradient(145deg, #75b78a, #4f9f68);
+}
+
+.quick-action.is-circumference {
+  background: linear-gradient(145deg, #69af7d, #478f5d);
 }
 
 .quick-action-icon, .quick-action-label {
@@ -97,7 +101,7 @@
 }
 
 .quick-action-label {
-  margin-top: 7px;
-  font-size: 13px;
+  margin-top: 6px;
+  font-size: 12px;
   font-weight: 600;
 }
