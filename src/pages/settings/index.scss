@@ -1,0 +1,71 @@
+.settings-page {
+  min-height: 100vh;
+  padding: 24px 20px 40px;
+  box-sizing: border-box;
+  background: #eff8f1;
+}
+
+.settings-card {
+  margin-bottom: 16px;
+  padding: 20px;
+  border: 1px solid #d5e8da;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 8px 22px rgb(51 99 64 / 7%);
+}
+
+.settings-title,
+.settings-copy,
+.account-date {
+  display: block;
+}
+
+.settings-title {
+  margin-bottom: 10px;
+  color: #284f34;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.settings-copy,
+.account-date {
+  color: #5d7063;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.settings-copy + .settings-copy,
+.account-date {
+  margin-top: 8px;
+}
+
+.secondary-button,
+.danger-button,
+.primary-button {
+  margin-top: 16px;
+  border: 0;
+  border-radius: 14px;
+  font-size: 15px;
+}
+
+.secondary-button,
+.primary-button {
+  background: #4f9f68;
+  color: #fff;
+}
+
+.danger-button {
+  background: #fff0f0;
+  color: #b63333;
+}
+
+.secondary-button::after,
+.danger-button::after,
+.primary-button::after {
+  border: 0;
+}
+
+.result-card {
+  margin-top: 80px;
+  text-align: center;
+}

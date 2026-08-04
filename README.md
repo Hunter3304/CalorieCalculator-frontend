@@ -30,6 +30,9 @@ Project handoff, iteration history, and iteration plans are indexed in [`doc/REA
 - Explore rolling 7-day, 30-day, and 365-day body-weight trends
 - Record any subset of six body-circumference measurements in centimeters
 - View independently carried circumference values and select one measurement for trend analysis
+- Sign in automatically through `Taro.login()` without storing a WeChat code or OpenID on the client
+- Attach an opaque application session to every API request and retry authentication only once after a 401
+- Review the in-app privacy explanation, revoke the current session, or permanently delete the account and personal data
 
 ## Prerequisites
 
@@ -90,12 +93,11 @@ D:\AAA\app\NodeJS\npm.cmd run build:h5
 
 Current release status:
 
-- 16 source-level frontend tests pass.
-- The production WeChat build and bundle compatibility check pass, and the generated API URL is the Tencent Cloud backend rather than localhost.
-- The body-weight and body-circumference backends are deployed and healthy in production.
-- The updated dist package has not yet been confirmed as uploaded as a new WeChat experience version; upload/selection remains a manual user step.
-- The user confirmed all homepage buttons work in WeChat Developer Tools after clearing/reopening its stale cached build.
-- The H5 production build passes with the existing entrypoint-size warning. In-app visual browser QA could not start because of a Windows sandbox setup failure, so no visual-browser approval is claimed.
+- 19 source-level frontend tests pass, including single-flight login and bounded 401 recovery.
+- The production WeChat build and bundle compatibility check pass with the authenticated request wrapper and HTTPS API origin.
+- The H5 production build passes with the existing 337 KiB entrypoint-size warning.
+- The authentication/privacy implementation is ready for Pull Request review but is not yet deployed or uploaded as a new experience version.
+- Experience version `1.1.2` remains tester-only because it predates user authentication and data isolation.
 
 Other configured targets include Alipay, ByteDance, Baidu Swan, QQ, JD, React Native, and Harmony hybrid. See `package.json` for their scripts.
 
@@ -118,9 +120,11 @@ src/
   pages/weightTrend/   Presets, end-date calendar, and line chart
   pages/circumferenceEditor/  Six-field sparse circumference editor
   pages/circumferenceTrend/   Measurement selector, presets, calendar, and line chart
-  services/api.js   Backend HTTP requests and API base URL
-  utils/            Local-date, natural-month, and API-response helpers
-tests/              API response, calendar, weight-trend, and WeChat bundle compatibility tests
+  pages/settings/   Privacy disclosure, logout, and destructive account deletion
+  services/auth.js  WeChat code exchange, token storage, and authenticated requests
+  services/api.js   Owner-scoped backend requests
+  utils/            Date, API-response, and auth-session helpers
+tests/              API, calendar, trend, authentication, and bundle-compatibility tests
 config/             Taro development and production configuration
 dist/               Generated platform build output
 ```
@@ -161,14 +165,13 @@ If requests fail:
 
 The domain, ICP filing, trusted HTTPS endpoint, production API configuration, WeChat `request` legal domain, and physical-device test without Developer Debugging are complete. Experience version `1.1.2` is suitable only for approved testers.
 
-Formal public review is blocked because the current client and API have no WeChat login or authenticated user context. Before submission:
+The code-level blockers are implemented: server-only WeChat code exchange, opaque sessions, owner-scoped data, privacy disclosure, logout, and account/data deletion. Formal public review remains blocked by the production and manual acceptance steps below:
 
-1. Exchange `Taro.login()` codes on the backend and create an authenticated app session without exposing the AppSecret to the client.
-2. Attach the session token to API requests and recover safely from an expired session.
-3. Isolate daily records, weight, circumference, and custom foods by the server-derived current user; never trust a client-supplied owner ID.
-4. Migrate existing production records non-destructively to the original owner and verify isolation with two different users.
-5. Add an in-app privacy explanation plus account and personal-data deletion.
-6. Run `npm run verify:weapp`, upload a new experience version, repeat physical-device acceptance, then submit that version for review.
+1. Merge both authentication Pull Requests. Enter the AppSecret privately in the server environment; never put it in the client or chat.
+2. Back up and verify PostgreSQL, apply the additive ownership migration, and deploy the authenticated backend during a maintenance window.
+3. Upload the new experience build and let the original owner log in first; only then run the guarded legacy-data claim.
+4. Test colliding dates and different values with two distinct WeChat accounts, including read/update/delete/carry-forward/trend isolation and account deletion.
+5. Complete the WeChat privacy-protection guide, rerun physical-device regression without Developer Debugging, and only then submit the accepted version for formal review.
 ## Related project
 
 

@@ -5,7 +5,8 @@ export default defineAppConfig({
     'pages/weightEditor/index',
     'pages/weightTrend/index',
     'pages/circumferenceEditor/index',
-    'pages/circumferenceTrend/index'
+    'pages/circumferenceTrend/index',
+    'pages/settings/index'
   ],
   window: {
     backgroundTextStyle: 'light',

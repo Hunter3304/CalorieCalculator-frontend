@@ -105,3 +105,19 @@
   font-size: 12px;
   font-weight: 600;
 }
+
+.settings-entry {
+  width: fit-content;
+  margin: 0 0 12px auto;
+  padding: 0 12px;
+  border: 1px solid #c7dfcd;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.78);
+  color: #477454;
+  font-size: 12px;
+  line-height: 28px;
+}
+
+.settings-entry::after {
+  border: 0;
+}
