@@ -42,10 +42,10 @@ Project handoff, iteration history, and iteration plans are indexed in [`doc/REA
 
 The client reads `TARO_APP_API_BASE` and falls back to `http://localhost:8080/api`.
 
-The checked-in development and production environment files currently point to the Tencent Cloud HTTP IP endpoint for experience-version testing:
+The development environment keeps the Tencent Cloud HTTP IP endpoint for experience-version rollback. The production environment uses the filed HTTPS API domain:
 
 ```dotenv
-TARO_APP_API_BASE="http://124.221.90.240/api"
+TARO_APP_API_BASE="https://api.caloriecalculator.top/api"
 ```
 
 The JavaScript fallback is used only when no environment value is injected. `npm run verify:weapp` verifies that the production bundle uses the configured Tencent Cloud API and does not contain unsupported optional-chaining or nullish-coalescing tokens.
