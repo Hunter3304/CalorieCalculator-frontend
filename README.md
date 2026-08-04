@@ -90,10 +90,11 @@ D:\AAA\app\NodeJS\npm.cmd run build:h5
 
 Current release status:
 
-- 11 source-level frontend tests pass.
+- 16 source-level frontend tests pass.
 - The production WeChat build and bundle compatibility check pass, and the generated API URL is the Tencent Cloud backend rather than localhost.
-- The body-weight backend is deployed and healthy in production.
-- The updated `dist` package has not yet been uploaded as a new WeChat experience version; this remains a manual user step.
+- The body-weight and body-circumference backends are deployed and healthy in production.
+- The updated dist package has not yet been confirmed as uploaded as a new WeChat experience version; upload/selection remains a manual user step.
+- The user confirmed all homepage buttons work in WeChat Developer Tools after clearing/reopening its stale cached build.
 - The H5 production build passes with the existing entrypoint-size warning. In-app visual browser QA could not start because of a Windows sandbox setup failure, so no visual-browser approval is claimed.
 
 Other configured targets include Alipay, ByteDance, Baidu Swan, QQ, JD, React Native, and Harmony hybrid. See `package.json` for their scripts.
@@ -158,14 +159,16 @@ If requests fail:
 
 ## Formal release checklist
 
-1. Complete domain real-name verification and ICP filing.
-2. Point an API subdomain to the Tencent Cloud server.
-3. Configure a trusted TLS certificate and HTTPS on Nginx.
-4. Change `.env.production` to the HTTPS API URL.
-5. Register the HTTPS origin as the WeChat `request` legal domain.
-6. Run `npm run verify:weapp`.
-7. Test on a physical device with Developer Debugging disabled.
-8. Upload, submit for review, and publish through WeChat Developer Tools and the Mini Program console.
+The domain, ICP filing, trusted HTTPS endpoint, production API configuration, WeChat `request` legal domain, and physical-device test without Developer Debugging are complete. Experience version `1.1.2` is suitable only for approved testers.
+
+Formal public review is blocked because the current client and API have no WeChat login or authenticated user context. Before submission:
+
+1. Exchange `Taro.login()` codes on the backend and create an authenticated app session without exposing the AppSecret to the client.
+2. Attach the session token to API requests and recover safely from an expired session.
+3. Isolate daily records, weight, circumference, and custom foods by the server-derived current user; never trust a client-supplied owner ID.
+4. Migrate existing production records non-destructively to the original owner and verify isolation with two different users.
+5. Add an in-app privacy explanation plus account and personal-data deletion.
+6. Run `npm run verify:weapp`, upload a new experience version, repeat physical-device acceptance, then submit that version for review.
 ## Related project
 
 
