@@ -245,6 +245,12 @@ export default function Index() {
 
   return (
     <View className='index-page'>
+      <Button
+        className='settings-entry'
+        onClick={() => Taro.navigateTo({ url: '/pages/settings/index' })}
+      >
+        隐私与账号
+      </Button>
       <View className='date-navigation'>
         <Button className={`date-arrow ${previousDisabled ? 'is-disabled' : ''}`} disabled={previousDisabled} onClick={() => changeDay(-1)}>‹</Button>
         <View className='date-trigger' onClick={openCalendar}>
