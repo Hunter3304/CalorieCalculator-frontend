@@ -159,14 +159,16 @@ If requests fail:
 
 ## Formal release checklist
 
-1. Complete domain real-name verification and ICP filing.
-2. Point an API subdomain to the Tencent Cloud server.
-3. Configure a trusted TLS certificate and HTTPS on Nginx.
-4. Change `.env.production` to the HTTPS API URL.
-5. Register the HTTPS origin as the WeChat `request` legal domain.
-6. Run `npm run verify:weapp`.
-7. Test on a physical device with Developer Debugging disabled.
-8. Upload, submit for review, and publish through WeChat Developer Tools and the Mini Program console.
+The domain, ICP filing, trusted HTTPS endpoint, production API configuration, WeChat `request` legal domain, and physical-device test without Developer Debugging are complete. Experience version `1.1.2` is suitable only for approved testers.
+
+Formal public review is blocked because the current client and API have no WeChat login or authenticated user context. Before submission:
+
+1. Exchange `Taro.login()` codes on the backend and create an authenticated app session without exposing the AppSecret to the client.
+2. Attach the session token to API requests and recover safely from an expired session.
+3. Isolate daily records, weight, circumference, and custom foods by the server-derived current user; never trust a client-supplied owner ID.
+4. Migrate existing production records non-destructively to the original owner and verify isolation with two different users.
+5. Add an in-app privacy explanation plus account and personal-data deletion.
+6. Run `npm run verify:weapp`, upload a new experience version, repeat physical-device acceptance, then submit that version for review.
 ## Related project
 
 
