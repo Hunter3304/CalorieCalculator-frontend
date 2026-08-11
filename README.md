@@ -93,11 +93,11 @@ D:\AAA\app\NodeJS\npm.cmd run build:h5
 
 Current release status:
 
-- 19 source-level frontend tests pass, including single-flight login and bounded 401 recovery.
-- The production WeChat build and bundle compatibility check pass with the authenticated request wrapper and HTTPS API origin.
-- The H5 production build passes with the existing 337 KiB entrypoint-size warning.
-- The authentication/privacy implementation is ready for Pull Request review but is not yet deployed or uploaded as a new experience version.
-- Experience version `1.1.2` remains tester-only because it predates user authentication and data isolation.
+- 19 source-level frontend tests pass, including single-flight login, bounded 401 recovery, and circumference payload validation.
+- The production WeChat build and bundle compatibility check pass with the authenticated request wrapper and HTTPS API origin; targeted ESLint and Stylelint also pass.
+- Backend PR #25 and frontend PR #31 are merged. The authenticated backend, additive ownership migration, login hotfix, original-owner login, and guarded legacy-data claim are deployed and verified.
+- The original owner confirmed calendar and circumference save behavior after rebuilding and recompiling the WeChat package.
+- The pre-authentication experience version `1.1.2` remains unsuitable for review. Only the authenticated accepted build may be submitted after two-real-account isolation and privacy-guide completion.
 
 Other configured targets include Alipay, ByteDance, Baidu Swan, QQ, JD, React Native, and Harmony hybrid. See `package.json` for their scripts.
 
@@ -163,15 +163,15 @@ If requests fail:
 
 ## Formal release checklist
 
-The domain, ICP filing, trusted HTTPS endpoint, production API configuration, WeChat `request` legal domain, and physical-device test without Developer Debugging are complete. Experience version `1.1.2` is suitable only for approved testers.
+The domain, ICP filing, trusted HTTPS endpoint, production API configuration, WeChat `request` legal domain, authenticated backend rollout, original-owner login, guarded historical-data claim, and single-account physical regression are complete.
 
-The code-level blockers are implemented: server-only WeChat code exchange, opaque sessions, owner-scoped data, privacy disclosure, logout, and account/data deletion. Formal public review remains blocked by the production and manual acceptance steps below:
+Remaining formal-release gates:
 
-1. Merge both authentication Pull Requests. Enter the AppSecret privately in the server environment; never put it in the client or chat.
-2. Back up and verify PostgreSQL, apply the additive ownership migration, and deploy the authenticated backend during a maintenance window.
-3. Upload the new experience build and let the original owner log in first; only then run the guarded legacy-data claim.
-4. Test colliding dates and different values with two distinct WeChat accounts, including read/update/delete/carry-forward/trend isolation and account deletion.
-5. Complete the WeChat privacy-protection guide, rerun physical-device regression without Developer Debugging, and only then submit the accepted version for formal review.
+1. Use a second real WeChat account to confirm an empty/private initial state and colliding-date isolation for read, update, delete, carry-forward, and trend behavior; then verify permanent deletion of that second test account.
+2. Complete the WeChat privacy-protection guide and rerun the final physical-device regression without Developer Debugging.
+3. Submit only the authenticated accepted build for formal review, then publish after approval.
+
+If WeChat DevTools reports that `dist/app.json` is missing while `miniprogramRoot` is `dist/`, wait for the Taro build to finish. `verify:weapp` clears and rebuilds `dist`; launching the simulator during that window produces a transient failure. Confirm `dist/app.json` exists, use Normal Compile, and reopen the project if a stale simulator state remains.
 ## Related project
 
 
